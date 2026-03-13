@@ -1,0 +1,12 @@
+[workspace]
+members = [
+    "crates/normalization",
+    "crates/dcca-engine",
+    "crates/clustering"
+]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+authors = ["Harry Woodhouse"]
