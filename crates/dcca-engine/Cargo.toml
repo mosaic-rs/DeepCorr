@@ -1,0 +1,10 @@
+[package]
+name = "dcca-engine"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+burn = { version = "0.13", features = ["train", "wgpu"] } 
+nalgebra = { version = "0.32", features = ["serde"] }
+serde = { version = "1.0", features = ["derive"] }
+normalization = { path = "../normalization" }
