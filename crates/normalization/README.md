@@ -26,3 +26,11 @@ $$
 \sqrt{0.23^2 + 0.93^2 + 0.26^2} = 0.99 
 $$
 Off slightly due to rounding but the math checks out.
+
+## Z-Score Normalization
+Subtrac the mean from a data point divided by the standard deviation of that row of the matrix
+
+$$
+z = \frac{x - \mu}{\sigma}
+$$
+
