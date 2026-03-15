@@ -1,6 +1,15 @@
-# NORMALIZATION!!! 
+# DeepCorr Normalization
 
-## Cosine Normalization
+A rust based normalization crate, part of the DeepCorr Deep CCA system currently in development by Harry Woodhouse at the University of York. 
+
+## Current Normalization Functions:
+- Cosine
+- Z-score
+- MinMax
+
+## Formulas:
+
+### Cosine Normalization
 Pass in a 2d matrix which replicates the structure of your data set (i.e. point per row) and it will normalize it. Cosine normalization normalizes data to a unit of 1 by divind values by the euclidean value. I.e.
 
 $$
@@ -27,10 +36,15 @@ $$
 $$
 Off slightly due to rounding but the math checks out.
 
-## Z-Score Normalization
+### Z-Score Normalization
 Subtrac the mean from a data point divided by the standard deviation of that row of the matrix
 
 $$
 z = \frac{x - \mu}{\sigma}
+$$
+
+### Min-Max
+$$
+x' = \frac{x - \text{min}(x)}{(\text{max}(x) - \text{min}(x)) + \epsilon}
 $$
 
