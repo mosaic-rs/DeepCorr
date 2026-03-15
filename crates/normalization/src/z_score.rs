@@ -41,13 +41,12 @@ impl ZScoreNormalizer {
 
         let mut normalized = data.clone();
 
-        for mut col in normalized.axis_iter_mut(Axis(1)) {
-            let col_idx = col.raw_view().index_at(0); /
-            let m = mean[col_idx];
-            let s = std[col_idx];
+        for (i, mut col) in normalized.axis_iter_mut(Axis(1)).enumerate() {
+                let m = mean[i];
+                let s = std[i];
 
-            col.mapv_inplace(|x| (x - m) / (s + self.epsilon)); // s _ epsilon in case s = 0 we make it = 1*10^(-10)
-        }
+                col.mapv_inplace(|x| (x - m) / (s + self.epsilon));
+            }
 
         Ok(normalized)
     }
