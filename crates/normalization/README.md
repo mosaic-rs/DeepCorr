@@ -40,7 +40,7 @@ Off slightly due to rounding but the math checks out.
 Subtrac the mean from a data point divided by the standard deviation of that row of the matrix
 
 $$
-z = \frac{x - \mu}{\sigma}
+z = \frac{x - \mu}{\sigma + \epsilon}
 $$
 
 ### Min-Max
