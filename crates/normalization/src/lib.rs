@@ -15,12 +15,14 @@ DeepCorr. If not, see <https://www.gnu.org/licenses/>.
 
 pub mod cosine;
 pub mod z_score;
+pub mod min_max;
 
 // External
 use thiserror::Error;
 use ndarray::Array2;
 use crate::cosine::CosineNormalizer;
 use crate::z_score::ZScoreNormalizer;
+use crate::min_max::MinMaxNormalizer;
 
 #[derive(Error, Debug)]
 pub enum NormError {
@@ -33,6 +35,7 @@ pub enum NormError {
 pub enum NormMethod {
     Cosine,
     ZScore,
+    MinMaxScore,
 }
 
 pub fn normalize_data(
@@ -47,6 +50,10 @@ pub fn normalize_data(
         },
         NormMethod::ZScore => {
             let n = ZScoreNormalizer::new(epsilon);
+            n.normalize(data)
+        }
+        NormMethod::MinMaxScore => {
+            let n = MinMaxNormalizer::new(epsilon);
             n.normalize(data)
         }
     }
