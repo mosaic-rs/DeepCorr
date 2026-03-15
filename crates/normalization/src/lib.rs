@@ -13,11 +13,14 @@ You should have received a copy of the GNU General Public License along with
 DeepCorr. If not, see <https://www.gnu.org/licenses/>.
 */
 
-// DeepCorr Plugins
 pub mod cosine;
+pub mod z_score;
 
 // External
-use thiserror::Error
+use thiserror::Error;
+use ndarray::Array2;
+use crate::cosine::CosineNormalizer;
+use crate::z_score::ZScoreNormalizer;
 
 #[derive(Error, Debug)]
 pub enum NormError {
@@ -27,4 +30,24 @@ pub enum NormError {
     ZeroMagnitude(usize),
 }
 
-pub use crate::cosine::normalize as cosine_normalize;
+pub enum NormMethod {
+    Cosine,
+    ZScore,
+}
+
+pub fn normalize_data(
+    data: &Array2<f64>, 
+    method: NormMethod, 
+    epsilon: f64
+) -> Result<Array2<f64>, NormError> {
+    match method {
+        NormMethod::Cosine => {
+            let n = CosineNormalizer::new(epsilon);
+            n.normalize(data)
+        },
+        NormMethod::ZScore => {
+            let n = ZScoreNormalizer::new(epsilon);
+            n.normalize(data)
+        }
+    }
+}
