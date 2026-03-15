@@ -1,7 +1,14 @@
 [package]
-name = "normalization"
-version.workspace = true
-edition.workspace = true
+name = "deepcorr-normalization"
+version = "0.1.0"
+authors = ["Harry Woodhouse <harry@harrywstephen.com>"]
+edition = "2021"
+description = "Lower level crate for DeepCorr which handles data normalization. Can be uses standalone too. "
+license = "GPL-3.0-or-later"
+repository = "https://github.com/mosaic-rs/DeepCorr"
+readme = "README.md"
+keywords = ["dcca", "normalization", "mosaic", "speech", "math"]
+categories = ["science", "mathematics", "data-structures"]
 
 [dependencies]
 ndarray = "0.15"
