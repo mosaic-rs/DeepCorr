@@ -36,16 +36,17 @@ impl MinMaxNormalizer {
             return Err(NormError::EmptyInput);
         }
 
+        let min = data.fold_axis(Axis(0), f64::INFINITY, |&a, &b| f64::min(a, b));
+        let max = data.fold_axis(Axis(0), f64::NEG_INFINITY, |&a, &b| f64::max(a, b));
+
         let mut normalized = data.clone();
 
-        for (idx, mut row) in normalized.axis_iter_mut(Axis(0)).enumerate() {
-            let norm = row.mapv(|x| x.powi(2)).sum().sqrt();
+        for (i, mut col) in normalized.axis_iter_mut(Axis(1)).enumerate() {
+            let col_min = min[i];
+            let col_max = max[i];
+            let range = col_max - col_min;
 
-            if norm < self.epsilon {
-                return Err(NormError::ZeroMagnitude(idx));
-            }
-
-            row.mapv_inplace(|x| x / norm);
+            col.mapv_inplace(|x| (x - col_min) / (range + self.epsilon));
         }
 
         Ok(normalized)
