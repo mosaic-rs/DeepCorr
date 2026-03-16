@@ -1,10 +1,18 @@
 [package]
-name = "clustering"
-version.workspace = true
-edition.workspace = true
+name = "deepcorr-clustering"
+version = "0.1.0"
+authors = ["Harry Woodhouse <harry@harrywstephen.com>"]
+edition = "2021"
+description = "Lower level crate for DeepCorr which handles Deep clustering. Can be used standalone too. "
+license = "GPL-3.0-or-later"
+repository = "https://github.com/mosaic-rs/DeepCorr"
+readme = "README.md"
+keywords = ["clustering", "k-means", "mosaic", "speech", "math"]
+categories = ["science", "mathematics", "data-structures"]
 
 [dependencies]
 linfa = "0.7"
 linfa-clustering = "0.7"
 ndarray = "0.15"
-dcca-engine = { path = "../dcca-engine" }
+deep-cca = { path = "../dcca-engine" }
+
