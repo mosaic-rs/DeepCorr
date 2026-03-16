@@ -1,10 +1,18 @@
 [package]
-name = "dcca-engine"
-version.workspace = true
-edition.workspace = true
+name = "deep-cca"
+version = "0.1.0"
+authors = ["Harry Woodhouse <harry@harrywstephen.com>"]
+edition = "2021"
+description = "Lower level crate for DeepCorr which handles Deep Canonical Correlation Analysis (DCCA). Can be used standalone too. "
+license = "GPL-3.0-or-later"
+repository = "https://github.com/mosaic-rs/DeepCorr"
+readme = "README.md"
+keywords = ["dcca", "normalization", "mosaic", "speech", "math"]
+categories = ["science", "mathematics", "data-structures"]
 
 [dependencies]
-burn = { version = "0.13", features = ["train", "wgpu"] } 
+#burn = { version = "0.13", features = ["train", "wgpu"] } 
+# Error within burn or how I am using it - will fix later
 nalgebra = { version = "0.32", features = ["serde"] }
 serde = { version = "1.0", features = ["derive"] }
-normalization = { path = "../normalization" }
+deepcorr-normalization = { path = "../normalization" }
