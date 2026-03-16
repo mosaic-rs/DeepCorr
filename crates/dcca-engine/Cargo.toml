@@ -11,8 +11,7 @@ keywords = ["dcca", "normalization", "mosaic", "speech", "math"]
 categories = ["science", "mathematics", "data-structures"]
 
 [dependencies]
-#burn = { version = "0.13", features = ["train", "wgpu"] } 
-# Error within burn or how I am using it - will fix later
+burn = { version = "0.20.0", features = ["train", "wgpu"] } 
 nalgebra = { version = "0.32", features = ["serde"] }
 serde = { version = "1.0", features = ["derive"] }
 deepcorr-normalization = { path = "../normalization" }
