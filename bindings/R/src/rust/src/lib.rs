@@ -13,10 +13,8 @@ You should have received a copy of the GNU General Public License along with
 DeepCorr. If not, see <https://www.gnu.org/licenses/>.
 */
 
-//use deepcorr{deep};
 
 use extendr_api::prelude::*;
-// Use RMatrix instead of ArrayView2 in the signature to avoid trait errors
 use deepcorr_normalization::{normalize_data, NormMethod};
 use ndarray::Array2;
 
@@ -61,12 +59,11 @@ fn exponent(x: u32, y: u32) -> u32 {
 }
 
 #[extendr]
-fn r_normalize(
+fn normalize(
     data: Robj, 
     method: String, 
-    #[default = "NULL"] epsilon: Option<f64> // Add this attribute!
+    #[default = "NULL"] epsilon: Option<f64> 
 ) -> extendr_api::Result<Robj> {
-    // Now this logic works perfectly because R passes NULL when epsilon is missing
     let eps = epsilon.unwrap_or(1e-6);
 
     let matrix_view: ndarray::ArrayView2<f64> = (&data).try_into()
@@ -100,5 +97,5 @@ extendr_module! {
     fn multiply;
     fn divide;
     fn exponent;
-    fn r_normalize;
+    fn normalize;
 }
