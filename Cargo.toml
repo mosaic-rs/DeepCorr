@@ -1,8 +1,29 @@
+[package]
+name = "deepcorr"
+version = "0.1.0"
+authors = ["Harry Woodhouse <harry@harrywstephen.com>"]
+edition = "2021"
+description = "Master level crate for deepcorr-normalization, deepcorr-dcca, and deepcorr-clustering. Also a front for the Python and R bindings."
+license = "GPL-3.0-or-later"
+repository = "https://github.com/mosaic-rs/DeepCorr"
+readme = "README.md"
+keywords = ["clustering", "k-means", "mosaic", "dcca", "normalization", "speech", "math"]
+categories = ["science", "mathematics", "data-structures"]
+
+
+[dependencies]
+pyo3 = "0.28.2"
+extendr-api = "0.7"
+deepcorr-normalization = { path = "crates/normalization" }
+deep-cca = { path = "crates/dcca-engine" }
+deepcorr-clustering = { path = "crates/clustering" }
+
 [workspace]
 members = [
     "crates/normalization",
     "crates/dcca-engine",
-    "crates/clustering"
+    "crates/clustering",
+    "bindings/R/src/rust"
 ]
 resolver = "2"
 
