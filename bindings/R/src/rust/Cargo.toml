@@ -1,0 +1,15 @@
+[package]
+name = "deepcorr_R_bindings"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "deepcorr"
+crate-type = ["staticlib", "cdylib"]
+
+[dependencies]
+extendr-api = { version = "0.7", features = ["ndarray"] }
+deepcorr = { path = "../../../../" }
+deepcorr-normalization = { path = "../../../../crates/normalization" }
+ndarray = "0.15"
+thiserror = "1.0"

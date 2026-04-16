@@ -1,0 +1,10 @@
+Package: deepcorr
+Type: Package
+Title: Deep Canonical Correlation Stats
+Version: 0.1.0
+SystemRequirements: SystemRequirements: Cargo (Rust's package manager), rustc
+Config/rextendr/version: 0.4.2
+Depends: 
+    R (>= 4.2)
+RoxygenNote: 7.3.3
+Encoding: UTF-8

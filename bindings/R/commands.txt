@@ -1,0 +1,6 @@
+Restart R code every update
+setwd("/Users/harrywoodhouse/CODE/deepcorr/bindings/R")
+
+rextendr::document()
+devtools::load_all()
+function goes here
