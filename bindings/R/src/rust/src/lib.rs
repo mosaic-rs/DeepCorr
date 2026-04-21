@@ -13,9 +13,8 @@ You should have received a copy of the GNU General Public License along with
 DeepCorr. If not, see <https://www.gnu.org/licenses/>.
 */
 
-
 use extendr_api::prelude::*;
-use deepcorr_normalization::{normalize_data, NormMethod};
+use deepcorr_normalization::{normalize_data, NormMethod, NormError};
 use ndarray::Array2;
 
 #[extendr]
@@ -59,32 +58,42 @@ fn exponent(x: u32, y: u32) -> u32 {
 }
 
 #[extendr]
-fn normalize(
+fn normalize_native(
     data: Robj, 
     method: String, 
-    #[default = "NULL"] epsilon: Option<f64> 
-) -> extendr_api::Result<Robj> {
+    epsilon: Option<f64>
+) -> Robj {
     let eps = epsilon.unwrap_or(1e-6);
 
-    let matrix_view: ndarray::ArrayView2<f64> = (&data).try_into()
-        .map_err(|_| Error::Other(String::from("Input must be a valid numeric matrix")))?;
+    let matrix_view: ndarray::ArrayView2<f64> = match (&data).try_into() {
+        Ok(v) => v,
+        Err(_) => {
+            return NormError::EmptyInput.formatted_message().into_robj();
+        }
+    };
     
-    let matrix_data: Array2<f64> = matrix_view.to_owned();
+    let matrix_data = matrix_view.to_owned();
     
     let norm_method = match method.to_lowercase().as_str() {
         "cosine" => NormMethod::Cosine,
         "zscore" => NormMethod::ZScore,
         "minmax" => NormMethod::MinMaxScore,
-        _ => return Err(Error::Other(String::from("Invalid method"))),
+        _ => {
+            // returns N103 error
+            return NormError::InvalidMethod.formatted_message().into_robj();
+        }
     };
 
     match normalize_data(&matrix_data, norm_method, eps) {
         Ok(result) => {
-            let out_robj: Robj = result.try_into()
-                .map_err(|_| Error::Other(String::from("Conversion failed")))?;
-            Ok(out_robj)
+            match result.try_into() {
+                Ok(out) => out,
+                Err(_) => "Error: Conversion to R matrix failed".into_robj(),
+            }
         },
-        Err(e) => Err(Error::Other(format!("Normalization error: {}", e))),
+        Err(e) => {
+            e.formatted_message().into_robj()
+        }
     }
 }
 
@@ -97,5 +106,5 @@ extendr_module! {
     fn multiply;
     fn divide;
     fn exponent;
-    fn normalize;
+    fn normalize_native; 
 }
