@@ -17,7 +17,6 @@ pub mod cosine;
 pub mod z_score;
 pub mod min_max;
 
-// External
 use thiserror::Error;
 use ndarray::Array2;
 use crate::cosine::CosineNormalizer;
@@ -30,6 +29,31 @@ pub enum NormError {
     EmptyInput,
     #[error("Zero-magnitude vector found at row {0}")]
     ZeroMagnitude(usize),
+    #[error("Invalid Normalisation Method")]
+    InvalidMethod,
+}
+
+impl NormError {
+    pub fn code(&self) -> &str {
+        match self {
+            NormError::EmptyInput => "N101",
+            NormError::ZeroMagnitude(_) => "N102",
+            NormError::InvalidMethod => "N103",
+        }
+    }
+
+    pub fn wiki_url(&self) -> String {
+        format!("https://github.com/mosaic-rs/deepcorr/wiki/Errors#{}", self.code())
+    }
+
+    pub fn formatted_message(&self) -> String {
+        format!(
+            "[{}] {}\nWiki: {}",
+            self.code(),
+            self,
+            self.wiki_url()
+        )
+    }
 }
 
 pub enum NormMethod {
