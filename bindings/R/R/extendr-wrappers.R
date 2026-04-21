@@ -24,7 +24,7 @@ divide <- function(x, y) .Call(wrap__divide, x, y)
 
 exponent <- function(x, y) .Call(wrap__exponent, x, y)
 
-normalize <- function(data, method, epsilon = NULL) .Call(wrap__normalize, data, method, epsilon)
+normalize_native <- function(data, method, epsilon) .Call(wrap__normalize_native, data, method, epsilon)
 
 
 # nolint end
