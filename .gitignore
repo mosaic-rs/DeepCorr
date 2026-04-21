@@ -8,6 +8,8 @@ bindings/R/src/*.dll
 bindings/R/src/*.o
 bindings/R/src/*.a
 bindings/R/src/rust/vendor/
+bindings/R/src/.cargo
+
 
 bindings/python/build/
 bindings/python/dist/
